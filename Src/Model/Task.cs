@@ -1,15 +1,29 @@
+using System.Numerics;
 using Priority;
 
 namespace ModelTask
 {
     public class TaskModel
     {
+        private BigInteger id = default(BigInteger);
         private string title = "";
         private string description = "";
-        private EnumPriority priority;
-        private DateTime startAt;
-        private DateTime finishAt;
-        private bool complete;
+        private EnumPriority priority = default(EnumPriority);
+        private DateTime startAt = default(DateTime);
+        private DateTime finishAt = default(DateTime);
+        private bool complete = false;
+
+        public BigInteger Id
+        {
+            set
+            {
+                id = value;
+            }
+            get
+            {
+                return id;
+            }
+        }
 
         public string Title
         {
