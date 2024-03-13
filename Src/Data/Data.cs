@@ -1,11 +1,11 @@
 using System.Numerics;
 using Priority;
 
-namespace ModelTask
+namespace Data
 {
-    public class TaskModel
+    public class GetterTasker
     {
-        private BigInteger id = default(BigInteger);
+        private BigInteger id = default(int);
         private string title = "";
         private string description = "";
         private EnumPriority priority = default(EnumPriority);
