@@ -1,37 +1,34 @@
 using System.Numerics;
-using IController;
+using IService;
 using ModelTask;
-using Service;
 
-namespace Controller
+namespace Service
 {
-    public class ControllerTasker : IControllerTasker
+    public class ServiceTasker : IServiceTasker
     {
-        private readonly ServiceTasker ServTasker = new();
-
         public TaskModel CreateTask(TaskModel tasker)
         {
-            return this.ServTasker.CreateTask(tasker);
+            throw new NotImplementedException();
         }
 
         public void DeleteTasker(BigInteger id)
         {
-            this.ServTasker.DeleteTasker(id);
+            throw new NotImplementedException();
         }
 
         public void FinishTasker(BigInteger id)
         {
-            this.ServTasker.FinishTasker(id);
+            throw new NotImplementedException();
         }
 
         public List<TaskModel> GetTasker()
         {
-            return this.ServTasker.GetTasker();
+            throw new NotImplementedException();
         }
 
         public TaskModel UpdateTasker(TaskModel tasker, BigInteger id)
         {
-            return this.UpdateTasker(tasker, id);
+            throw new NotImplementedException();
         }
     }
 }
