@@ -1,6 +1,7 @@
 using System.Numerics;
 using IService;
 using ModelTask;
+using PriorityEnumUtil;
 using UtilDateTime;
 using UtilString;
 
@@ -12,6 +13,7 @@ namespace Service
         {
             StringUtil.IsNotEmptyString(tasker.Title, "Title");
             DateTimeUtil.IsNotStartGreaterThanFinish(tasker.StartAt, tasker.FinishAt);
+            PriorityUtil.IsUnknow(tasker.Priority);
 
             return tasker;
         }
