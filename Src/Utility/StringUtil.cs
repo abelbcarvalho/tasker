@@ -6,7 +6,7 @@ namespace UtilString
     {
         public static bool IsNotEmptyString(string value, string field = "field")
         {
-            if (value.Length == 0)
+            if (IsEmpty(value))
             {
                 throw new StringException($"Attribute {field} should not be empty.");
             }
@@ -22,6 +22,11 @@ namespace UtilString
             }
 
             return true;
+        }
+
+        public static bool IsEmpty(string value)
+        {
+            return value.Length == 0;
         }
     }
 }

@@ -1,6 +1,9 @@
 using System.Numerics;
 using IService;
 using ModelTask;
+using PriorityEnumUtil;
+using UtilDateTime;
+using UtilString;
 
 namespace Service
 {
@@ -8,7 +11,11 @@ namespace Service
     {
         public TaskModel CreateTask(TaskModel tasker)
         {
-            throw new NotImplementedException();
+            StringUtil.IsNotEmptyString(tasker.Title, "Title");
+            DateTimeUtil.IsNotStartGreaterThanFinish(tasker.StartAt, tasker.FinishAt);
+            PriorityUtil.IsUnknow(tasker.Priority);
+
+            return tasker;
         }
 
         public void DeleteTasker(BigInteger id)
