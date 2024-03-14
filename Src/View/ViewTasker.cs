@@ -1,8 +1,61 @@
+using ModelTask;
+using Priority;
+
 namespace ViewTasker
 {
     public class TaskerView
     {
         private int alternative = default(int);
+        private TaskModel taskModel = new();
+
+        private DateTime CreateDateTime()
+        {
+            Console.Write("Year :> ");
+            int year = int.Parse(Console.ReadLine() ?? "1");
+
+            Console.Write("Month :> ");
+            int month = int.Parse(Console.ReadLine() ?? "1");
+
+            Console.Write("Day :> ");
+            int day = int.Parse(Console.ReadLine() ?? "1");
+
+            Console.Write("Hour :> ");
+            int hour = int.Parse(Console.ReadLine() ?? "0");
+
+            Console.Write("Minute :> ");
+            int minute = int.Parse(Console.ReadLine() ?? "0");
+
+            return new DateTime(year, month, day, hour, minute, 0);
+        }
+
+        protected void CreateNewTaskView()
+        {
+            Console.Clear();
+            Console.WriteLine("Creating a New Tasker\nComplete The Params.\n");
+
+            Console.Write("Title: ");
+            this.taskModel.Title = Console.ReadLine() ?? "";
+
+            Console.Write("Description: ");
+            this.taskModel.Description = Console.ReadLine() ?? "";
+
+            Console.Write(":: Choose Your Priority\n[1] - High\n[2] - Medium\n[3] - Low\n:=:> ");
+            this.alternative = int.Parse(Console.ReadLine() ?? "0");
+
+            this.taskModel.Priority = this.alternative switch
+            {
+                1 => EnumPriority.High,
+                2 => EnumPriority.Medium,
+                3 => EnumPriority.Low,
+                _ => EnumPriority.Unknown,
+            };
+
+            Console.WriteLine(":: Define The Start At Time");
+            this.taskModel.StartAt = this.CreateDateTime();
+
+            Console.WriteLine(":: Define The Finish At Time");
+            this.taskModel.FinishAt = this.CreateDateTime();
+        }
 
         protected void MenuText()
         {
@@ -31,8 +84,12 @@ namespace ViewTasker
             {
                 Console.Clear();
                 this.MenuText();
-                
-                switch (this.alternative) {
+
+                switch (this.alternative)
+                {
+                    case 1:
+                        this.CreateNewTaskView();
+                        break;
                     case 0:
                         Console.WriteLine("Thank You For Use Tasker!");
                         Console.ReadKey();
