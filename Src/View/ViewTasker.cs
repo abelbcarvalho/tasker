@@ -28,6 +28,15 @@ namespace ViewTasker
             return new DateTime(year, month, day, hour, minute, 0);
         }
 
+        protected void FinishTaskView()
+        { }
+
+        protected void DeleteTaskView()
+        { }
+
+        protected void UpdateTaskView()
+        { }
+
         protected void SearchForTasksView()
         {
             int option = 0;
@@ -173,6 +182,15 @@ namespace ViewTasker
                         break;
                     case 2:
                         this.SearchForTasksView();
+                        break;
+                    case 3:
+                        this.UpdateTaskView();
+                        break;
+                    case 4:
+                        this.DeleteTaskView();
+                        break;
+                    case 5:
+                        this.FinishTaskView();
                         break;
                     case 0:
                         Console.WriteLine("Thank You For Use Tasker!");
