@@ -88,9 +88,32 @@ namespace PersistenceTasker
 
         public List<TaskModel> GetTasker()
         {
+            List<TaskModel> taskers = new();
             try
             {
                 DatabaseConnectione.OpenConnection();
+
+                using var command = DatabaseConnectione.Command(
+                    "select * from Taskers"
+                );
+
+                using var resultSet = command.ExecuteReader();
+
+                while (resultSet.Read())
+                {
+                    TaskModel model = new()
+                    {
+                        Id = resultSet.GetInt32(0),
+                        Title = resultSet.GetString(1),
+                        Description = resultSet.GetString(2),
+                        Priority = PriorityUtil.EnumFromString(resultSet.GetString(3)),
+                        Complete = resultSet.GetBoolean(4),
+                        StartAt = resultSet.GetDateTime(5),
+                        FinishAt = resultSet.GetDateTime(6)
+                    };
+
+                    taskers.Add(model);
+                }
             }
             catch (Exception e)
             {
@@ -101,7 +124,7 @@ namespace PersistenceTasker
                 DatabaseConnectione.CloseConnection();
             }
 
-            return [];
+            return taskers;
         }
 
         public TaskModel UpdateTasker(TaskModel tasker, BigInteger id)
