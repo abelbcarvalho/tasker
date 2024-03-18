@@ -43,6 +43,14 @@ namespace PersistenceTasker
             try
             {
                 DatabaseConnectione.OpenConnection();
+
+                using var command = DatabaseConnectione.Command(
+                    "delete from Taskers where id=@id"
+                );
+
+                command.Parameters.AddWithValue("@id", id);
+
+                command.ExecuteNonQuery();
             }
             catch (Exception e)
             {
