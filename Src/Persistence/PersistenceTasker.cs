@@ -67,6 +67,14 @@ namespace PersistenceTasker
             try
             {
                 DatabaseConnectione.OpenConnection();
+
+                using var command = DatabaseConnectione.Command(
+                    "update Taskers set complete=@complete"
+                );
+
+                command.Parameters.AddWithValue("@complete", true);
+
+                command.ExecuteNonQuery();
             }
             catch (Exception e)
             {
