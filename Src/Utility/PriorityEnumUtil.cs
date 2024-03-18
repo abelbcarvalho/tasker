@@ -27,5 +27,18 @@ namespace PriorityEnumUtil
 
             return value;
         }
+
+        public static EnumPriority EnumFromString(string priority)
+        {
+            EnumPriority value = priority switch
+            {
+                "High" => EnumPriority.High,
+                "Medium" => EnumPriority.Medium,
+                "Low" => EnumPriority.Low,
+                _ => EnumPriority.Unknown
+            };
+
+            return value;
+        }
     }
 }
