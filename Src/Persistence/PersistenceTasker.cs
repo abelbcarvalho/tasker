@@ -2,6 +2,7 @@ using System.Numerics;
 using Database;
 using IPersistenceTasker;
 using ModelTask;
+using PriorityEnumUtil;
 
 namespace PersistenceTasker
 {
@@ -12,6 +13,18 @@ namespace PersistenceTasker
             try
             {
                 DatabaseConnectione.OpenConnection();
+
+                using var command = DatabaseConnectione.Command(
+                    "insert into Taskers (title, description, priority, startAt, finishAt) values (@title,@description,@priority,@startAt,@finishAt)"
+                );
+
+                command.Parameters.AddWithValue("@title", tasker.Title);
+                command.Parameters.AddWithValue("@description", tasker.Description);
+                command.Parameters.AddWithValue("@priority", PriorityUtil.EnumValueString(tasker.Priority));
+                command.Parameters.AddWithValue("@startAt", tasker.StartAt);
+                command.Parameters.AddWithValue("@finishAt", tasker.FinishAt);
+
+                command.ExecuteNonQuery();
             }
             catch (Exception e)
             {
