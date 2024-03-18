@@ -7,31 +7,31 @@ namespace Controller
 {
     public class ControllerTasker : IControllerTasker
     {
-        private readonly ServiceTasker ServTasker = new();
+        private readonly ServiceTasker servTasker = new();
 
         public TaskModel CreateTask(TaskModel tasker)
         {
-            return this.ServTasker.CreateTask(tasker);
+            return this.servTasker.CreateTask(tasker);
         }
 
         public void DeleteTasker(BigInteger id)
         {
-            this.ServTasker.DeleteTasker(id);
+            this.servTasker.DeleteTasker(id);
         }
 
         public void FinishTasker(BigInteger id)
         {
-            this.ServTasker.FinishTasker(id);
+            this.servTasker.FinishTasker(id);
         }
 
         public List<TaskModel> GetTasker()
         {
-            return this.ServTasker.GetTasker();
+            return this.servTasker.GetTasker();
         }
 
         public TaskModel UpdateTasker(TaskModel tasker, BigInteger id)
         {
-            return this.UpdateTasker(tasker, id);
+            return this.servTasker.UpdateTasker(tasker, id);
         }
     }
 }
