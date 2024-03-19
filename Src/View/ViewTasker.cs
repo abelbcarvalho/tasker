@@ -13,6 +13,27 @@ namespace ViewTasker
         private readonly ControllerTasker controller = new();
         private List<TaskModel> taskers = [];
 
+        private void SetPriority()
+        {
+            try
+            {
+                Console.Write(":: Choose Your Priority\n[1] - High\n[2] - Medium\n[3] - Low\n:=:> ");
+                this.alternative = int.Parse(Console.ReadLine() ?? "0");
+
+                this.taskModel.Priority = this.alternative switch
+                {
+                    1 => EnumPriority.High,
+                    2 => EnumPriority.Medium,
+                    3 => EnumPriority.Low,
+                    _ => EnumPriority.Unknown,
+                };
+            }
+            catch (Exception)
+            {
+                this.taskModel.Priority = EnumPriority.Unknown;
+            }
+        }
+
         private DateTime CreateDateTime()
         {
             try
@@ -35,7 +56,7 @@ namespace ViewTasker
                 return new DateTime(year, month, day, hour, minute, 0);
             }
             catch (Exception)
-            {}
+            { }
 
             return default(DateTime);
         }
@@ -96,7 +117,7 @@ namespace ViewTasker
         protected void UpdateTaskView()
         {
             ModelTaskUtil.ModelToDefault(this.taskModel);
-            
+
             Console.Clear();
             Console.WriteLine("Creating an Existing Tasker\nComplete The Params.\n");
 
@@ -109,16 +130,7 @@ namespace ViewTasker
             Console.Write("Description: ");
             this.taskModel.Description = Console.ReadLine() ?? "";
 
-            Console.Write(":: Choose Your Priority\n[1] - High\n[2] - Medium\n[3] - Low\n:=:> ");
-            this.alternative = int.Parse(Console.ReadLine() ?? "0");
-
-            this.taskModel.Priority = this.alternative switch
-            {
-                1 => EnumPriority.High,
-                2 => EnumPriority.Medium,
-                3 => EnumPriority.Low,
-                _ => EnumPriority.Unknown,
-            };
+            this.SetPriority();
 
             Console.WriteLine(":: Define The Start At Time");
             this.taskModel.StartAt = this.CreateDateTime();
@@ -245,16 +257,7 @@ namespace ViewTasker
             Console.Write("Description: ");
             this.taskModel.Description = Console.ReadLine() ?? "";
 
-            Console.Write(":: Choose Your Priority\n[1] - High\n[2] - Medium\n[3] - Low\n:=:> ");
-            this.alternative = int.Parse(Console.ReadLine() ?? "0");
-
-            this.taskModel.Priority = this.alternative switch
-            {
-                1 => EnumPriority.High,
-                2 => EnumPriority.Medium,
-                3 => EnumPriority.Low,
-                _ => EnumPriority.Unknown,
-            };
+            this.SetPriority();
 
             Console.WriteLine(":: Define The Start At Time");
             this.taskModel.StartAt = this.CreateDateTime();
