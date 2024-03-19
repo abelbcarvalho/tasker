@@ -15,14 +15,14 @@ namespace Controller
             return this.servTasker.CreateTask(tasker);
         }
 
-        public void DeleteTasker(BigInteger id)
+        public bool DeleteTasker(BigInteger id)
         {
-            this.servTasker.DeleteTasker(id);
+            return this.servTasker.DeleteTasker(id);
         }
 
-        public void FinishTasker(BigInteger id)
+        public bool FinishTasker(BigInteger id)
         {
-            this.servTasker.FinishTasker(id);
+            return this.servTasker.FinishTasker(id);
         }
 
         public List<TaskModel> GetTaskersByTitle(string title)
@@ -48,6 +48,11 @@ namespace Controller
         public List<TaskModel> GetTaskersByDateTimeStartAndFinish(DateTime startAt, DateTime finishAt)
         {
             return this.servTasker.GetTaskersByDateTimeStartAndFinish(startAt, finishAt);
+        }
+
+        public TaskModel GetTaskerById(BigInteger id)
+        {
+            return this.servTasker.GetTaskerById(id);
         }
 
         public TaskModel UpdateTasker(TaskModel tasker, BigInteger id)

@@ -12,8 +12,9 @@ namespace IPersistenceTasker
         public abstract List<TaskModel> GetTaskersByDateTimeStart(DateTime startAt);
         public abstract List<TaskModel> GetTaskersByDateTimeFinish(DateTime finishAt);
         public abstract List<TaskModel> GetTaskersByDateTimeStartAndFinish(DateTime startAt, DateTime finishAt);
+        public abstract TaskModel GetTaskerById(BigInteger id);
         public abstract TaskModel UpdateTasker(TaskModel tasker, BigInteger id);
-        public abstract void DeleteTasker(BigInteger id);
-        public abstract void FinishTasker(BigInteger id);
+        public abstract bool DeleteTasker(BigInteger id);
+        public abstract bool FinishTasker(BigInteger id);
     }
 }

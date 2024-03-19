@@ -22,14 +22,14 @@ namespace Service
             return this.taskerPersistence.CreateTask(tasker);
         }
 
-        public void DeleteTasker(BigInteger id)
+        public bool DeleteTasker(BigInteger id)
         {
-            throw new NotImplementedException();
+            return this.taskerPersistence.DeleteTasker(id);
         }
 
-        public void FinishTasker(BigInteger id)
+        public bool FinishTasker(BigInteger id)
         {
-            throw new NotImplementedException();
+            return this.taskerPersistence.FinishTasker(id);
         }
 
         public List<TaskModel> GetTaskersByTitle(string title)
@@ -57,6 +57,11 @@ namespace Service
             DateTimeUtil.IsNotStartGreaterThanFinish(startAt, finishAt);
 
             return this.taskerPersistence.GetTaskersByDateTimeStartAndFinish(startAt, finishAt);
+        }
+
+        public TaskModel GetTaskerById(BigInteger id)
+        {
+            return this.taskerPersistence.GetTaskerById(id);
         }
 
         public TaskModel UpdateTasker(TaskModel tasker, BigInteger id)

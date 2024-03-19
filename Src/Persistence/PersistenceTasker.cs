@@ -40,7 +40,7 @@ namespace PersistenceTasker
             return tasker;
         }
 
-        public void DeleteTasker(BigInteger id)
+        public bool DeleteTasker(BigInteger id)
         {
             try
             {
@@ -57,14 +57,17 @@ namespace PersistenceTasker
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+                return false;
             }
             finally
             {
                 DatabaseConnectione.CloseConnection();
             }
+
+            return true;
         }
 
-        public void FinishTasker(BigInteger id)
+        public bool FinishTasker(BigInteger id)
         {
             try
             {
@@ -81,11 +84,14 @@ namespace PersistenceTasker
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+                return false;
             }
             finally
             {
                 DatabaseConnectione.CloseConnection();
             }
+
+            return true;
         }
 
         public List<TaskModel> GetTaskersByTitle(string title)
@@ -307,11 +313,81 @@ namespace PersistenceTasker
             return taskers;
         }
 
+        public TaskModel GetTaskerById(BigInteger id)
+        {
+            List<TaskModel> taskers = [];
+            try
+            {
+                DatabaseConnectione.OpenConnection();
+
+                using var command = DatabaseConnectione.Command(
+                    "select * from Taskers where id=@id"
+                );
+
+                command.Parameters.AddWithValue("@id", id);
+
+                using var resultSet = command.ExecuteReader();
+
+                while (resultSet.Read())
+                {
+                    TaskModel model = new()
+                    {
+                        Id = resultSet.GetInt32(0),
+                        Title = resultSet.GetString(1),
+                        Description = resultSet.GetString(2),
+                        Priority = PriorityUtil.EnumFromString(resultSet.GetString(3)),
+                        Complete = resultSet.GetBoolean(4),
+                        StartAt = resultSet.GetDateTime(5),
+                        FinishAt = resultSet.GetDateTime(6)
+                    };
+
+                    taskers.Add(model);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                DatabaseConnectione.CloseConnection();
+            }
+
+            return taskers.First();
+        }
+
         public TaskModel UpdateTasker(TaskModel tasker, BigInteger id)
         {
             try
             {
+                TaskModel model = this.GetTaskerById(id);
+
                 DatabaseConnectione.OpenConnection();
+
+                model.Title = tasker.Title.Length > 0 ? tasker.Title : model.Title;
+                model.Description = tasker.Description.Length > 0 ? tasker.Description : model.Description;
+                model.Priority = tasker.Priority != EnumPriority.Unknown ? tasker.Priority : model.Priority;
+                model.Complete = tasker.Complete;
+                model.StartAt = tasker.StartAt != default(DateTime) ? tasker.StartAt : model.StartAt;
+                model.FinishAt = tasker.FinishAt != default(DateTime) ? tasker.FinishAt : model.FinishAt;
+
+                using var command = DatabaseConnectione.Command(
+                    "update Taskers set"+
+                    "title=@title, description=@description"+
+                    "priority=@priority, complete=@complete"+
+                    "startAt=@startAt, finishAt=@finishAt "+
+                    "where id=@id"
+                );
+
+                command.Parameters.AddWithValue("@title", tasker.Title);
+                command.Parameters.AddWithValue("@description", tasker.Description);
+                command.Parameters.AddWithValue("@priority", PriorityUtil.EnumValueString(tasker.Priority));
+                command.Parameters.AddWithValue("@complete", tasker.Complete);
+                command.Parameters.AddWithValue("@startAt", tasker.StartAt);
+                command.Parameters.AddWithValue("@finishAt", tasker.FinishAt);
+                command.Parameters.AddWithValue("@id", id);
+
+                command.ExecuteNonQuery();
             }
             catch (Exception e)
             {
