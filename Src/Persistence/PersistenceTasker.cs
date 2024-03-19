@@ -15,12 +15,13 @@ namespace PersistenceTasker
                 DatabaseConnectione.OpenConnection();
 
                 using var command = DatabaseConnectione.Command(
-                    "insert into Taskers (title, description, priority, startAt, finishAt) values (@title,@description,@priority,@startAt,@finishAt)"
+                    "insert into Taskers (title, description, priority, complete, startAt, finishAt) values (@title,@description,@priority,@complete,@startAt,@finishAt)"
                 );
 
                 command.Parameters.AddWithValue("@title", tasker.Title);
                 command.Parameters.AddWithValue("@description", tasker.Description);
                 command.Parameters.AddWithValue("@priority", PriorityUtil.EnumValueString(tasker.Priority));
+                command.Parameters.AddWithValue("@complete", tasker.Complete);
                 command.Parameters.AddWithValue("@startAt", tasker.StartAt);
                 command.Parameters.AddWithValue("@finishAt", tasker.FinishAt);
 
