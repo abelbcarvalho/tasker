@@ -54,6 +54,8 @@ namespace Service
 
         public List<TaskModel> GetTaskersByDateTimeStartAndFinish(DateTime startAt, DateTime finishAt)
         {
+            DateTimeUtil.IsNotStartGreaterThanFinish(startAt, finishAt);
+
             return this.taskerPersistence.GetTaskersByDateTimeStartAndFinish(startAt, finishAt);
         }
 
