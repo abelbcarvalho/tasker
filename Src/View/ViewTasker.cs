@@ -58,7 +58,7 @@ namespace ViewTasker
             catch (Exception)
             { }
 
-            return default(DateTime);
+            return new(1,1,1,0,0,0);
         }
 
         private void ListTaskersGotFromDB()
@@ -140,7 +140,7 @@ namespace ViewTasker
 
             controller.UpdateTasker(this.taskModel, taskId);
 
-            Console.WriteLine("Success to Create a New Task!");
+            Console.WriteLine("Success to Update an Existing Task!");
         }
 
         protected void SearchForTasksView()
