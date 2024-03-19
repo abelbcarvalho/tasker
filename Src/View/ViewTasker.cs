@@ -9,6 +9,7 @@ namespace ViewTasker
         private int alternative = default(int);
         private readonly TaskModel taskModel = new();
         private readonly ControllerTasker controller = new();
+        private List<TaskModel> taskers = [];
 
         private DateTime CreateDateTime()
         {
@@ -28,6 +29,21 @@ namespace ViewTasker
             int minute = int.Parse(Console.ReadLine() ?? "0");
 
             return new DateTime(year, month, day, hour, minute, 0);
+        }
+
+        private void ListTaskersGotFromDB()
+        {
+            Console.WriteLine("Listing All Got Taskers !!\n---------------------------------");
+            foreach (TaskModel task in this.taskers)
+            {
+                Console.WriteLine($"ID: {task.Id}");
+                Console.WriteLine($"Title: {task.Title}");
+                Console.WriteLine($"Description: {task.Description}");
+                Console.WriteLine($"Priority: {task.Priority}");
+                Console.WriteLine($"Complete: {task.Complete}");
+                Console.WriteLine($"StartAt: {task.StartAt}");
+                Console.WriteLine($"FinishAt: {task.FinishAt}\n---------------------------------");
+            }
         }
 
         protected void FinishTaskView()
@@ -54,7 +70,10 @@ namespace ViewTasker
                     Console.Clear();
                     Console.Write("Searching by Title\nType Title Here ::> ");
                     this.taskModel.Title = Console.ReadLine() ?? "";
-                    Console.ReadKey();
+
+                    this.taskers = this.controller.GetTaskersByTitle(this.taskModel.Title);
+
+                    this.ListTaskersGotFromDB();
                     break;
                 case 2:
                     Console.Clear();
@@ -78,7 +97,12 @@ namespace ViewTasker
                     {
                         Console.WriteLine("Invalid Value For Priority");
                         Console.ReadKey();
+                        break;
                     }
+
+                    this.taskers = this.controller.GetTaskersByPriority(this.taskModel.Priority);
+
+                    this.ListTaskersGotFromDB();
                     break;
                 case 3:
                     Console.Clear();
@@ -93,11 +117,19 @@ namespace ViewTasker
                             Console.Clear();
                             Console.WriteLine("Searching By Date Time\nStart Date Time !!!\n");
                             this.taskModel.StartAt = this.CreateDateTime();
+
+                            this.taskers = this.controller.GetTaskersByDateTimeStart(this.taskModel.StartAt);
+
+                            this.ListTaskersGotFromDB();
                             break;
                         case 2:
                             Console.Clear();
                             Console.WriteLine("Searching By Date Time\nFinish Date Time !!!\n");
                             this.taskModel.FinishAt = this.CreateDateTime();
+
+                            this.taskers = this.controller.GetTaskersByDateTimeFinish(this.taskModel.FinishAt);
+
+                            this.ListTaskersGotFromDB();
                             break;
                         case 3:
                             Console.Clear();
@@ -105,6 +137,12 @@ namespace ViewTasker
                             this.taskModel.StartAt = this.CreateDateTime();
                             Console.WriteLine("\nFinish At Date Time\n");
                             this.taskModel.FinishAt = this.CreateDateTime();
+
+                            this.taskers = this.controller.GetTaskersByDateTimeStartAndFinish(
+                                this.taskModel.StartAt, this.taskModel.FinishAt
+                            );
+
+                            this.ListTaskersGotFromDB();
                             break;
                         default:
                             Console.WriteLine("Invalid Alternative!");
