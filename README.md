@@ -7,15 +7,16 @@
 2. [Requirements](#requirements)
 3. [Packages To Install](#packages-to-install)
 4. [Installing Packages](#installing-packages)
-5. [Key Features](#key-features)
-6. [Additional Features](#additional-features)
-7. [Security](#security)
-8. [User Interface](#user-interface)
-9. [Data Storage](#data-storage)
-10. [Reports](#reports)
-11. [Exceptions and Error Handling](#exceptions-and-error-handling)
-12. [Non Functional Requirements](#non-functional-requirements)
-13. [Use Cases](#use-cases)
+5. [SQL File](#sql-file)
+6. [Key Features](#key-features)
+7. [Additional Features](#additional-features)
+8. [Security](#security)
+9. [User Interface](#user-interface)
+10. [Data Storage](#data-storage)
+11. [Reports](#reports)
+12. [Exceptions and Error Handling](#exceptions-and-error-handling)
+13. [Non Functional Requirements](#non-functional-requirements)
+14. [Use Cases](#use-cases)
 
 ## **Objective:**
 Develop an application for task management that allows users to efficiently add, edit, and delete tasks.
@@ -29,7 +30,7 @@ It is used a `.env` file with environment varibales. Please rename the file [.en
   1. DotNet.Net - To Read Environment Variables From .Env File;
   2. Npgsql - To Work With PostgreSQL;
 
-## Installing Packages:
+## **Installing Packages:**
 ```bash
 dotnet add package dotenv.net
 ```
@@ -37,6 +38,11 @@ dotnet add package dotenv.net
 ```bash
 dotnet add package Npgsql
 ```
+
+## **SQL File**
+
+Here is the link to a `.sql` file named `create_table`, import the file and compile it.
+File: [create-table.sql](create_table.sql)
 
 ## **Key Features:**
 - **Add Task:**
