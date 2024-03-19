@@ -1,3 +1,4 @@
+using System.Numerics;
 using Controller;
 using ModelTask;
 using Priority;
@@ -47,10 +48,42 @@ namespace ViewTasker
         }
 
         protected void FinishTaskView()
-        { }
+        {
+            Console.Clear();
+            Console.WriteLine("Finish A Specific Task");
+
+            Console.WriteLine("\n\tPlease check the Option about Search before, to get ID\n");
+
+            Console.Write("Type The Task ID ::> ");
+
+            BigInteger idTask = BigInteger.Parse(Console.ReadLine() ?? "0");
+
+            bool result = this.controller.FinishTasker(idTask);
+
+            if (result)
+            {
+                Console.WriteLine("Success! This Task Was Finished!!");
+            }
+        }
 
         protected void DeleteTaskView()
-        { }
+        {
+            Console.Clear();
+            Console.WriteLine("Delete A Specific Task");
+
+            Console.WriteLine("\n\tPlease check the Option about Search before, to get ID\n");
+
+            Console.Write("Type The Task ID ::> ");
+
+            BigInteger idTask = BigInteger.Parse(Console.ReadLine() ?? "0");
+
+            bool result = this.controller.DeleteTasker(idTask);
+
+            if (result)
+            {
+                Console.WriteLine("Success! This Task Was Deleted!!");
+            }
+        }
 
         protected void UpdateTaskView()
         { }
