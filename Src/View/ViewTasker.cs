@@ -2,6 +2,7 @@ using System.Numerics;
 using Controller;
 using ModelTask;
 using Priority;
+using TaskModelUtil;
 
 namespace ViewTasker
 {
@@ -86,7 +87,42 @@ namespace ViewTasker
         }
 
         protected void UpdateTaskView()
-        { }
+        {
+            ModelTaskUtil.ModelToDefault(this.taskModel);
+            
+            Console.Clear();
+            Console.WriteLine("Creating an Existing Tasker\nComplete The Params.\n");
+
+            Console.Write("Tasker ID: ");
+            BigInteger taskId = BigInteger.Parse(Console.ReadLine() ?? "0");
+
+            Console.Write("Title: ");
+            this.taskModel.Title = Console.ReadLine() ?? "";
+
+            Console.Write("Description: ");
+            this.taskModel.Description = Console.ReadLine() ?? "";
+
+            Console.Write(":: Choose Your Priority\n[1] - High\n[2] - Medium\n[3] - Low\n:=:> ");
+            this.alternative = int.Parse(Console.ReadLine() ?? "0");
+
+            this.taskModel.Priority = this.alternative switch
+            {
+                1 => EnumPriority.High,
+                2 => EnumPriority.Medium,
+                3 => EnumPriority.Low,
+                _ => EnumPriority.Unknown,
+            };
+
+            Console.WriteLine(":: Define The Start At Time");
+            this.taskModel.StartAt = this.CreateDateTime();
+
+            Console.WriteLine(":: Define The Finish At Time");
+            this.taskModel.FinishAt = this.CreateDateTime();
+
+            controller.UpdateTasker(this.taskModel, taskId);
+
+            Console.WriteLine("Success to Create a New Task!");
+        }
 
         protected void SearchForTasksView()
         {
