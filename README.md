@@ -1,8 +1,42 @@
 # Tasker
 ### Task Management System
 
+## SUMMARY
+
+1. [Objective](#objective)
+2. [Requirements](#requirements)
+3. [Packages To Install](#packages-to-install)
+4. [Installing Packages](#installing-packages)
+5. [Key Features](#key-features)
+6. [Additional Features](#additional-features)
+7. [Security](#security)
+8. [User Interface](#user-interface)
+9. [Data Storage](#data-storage)
+10. [Reports](#reports)
+11. [Exceptions and Error Handling](#exceptions-and-error-handling)
+12. [Non Functional Requirements](#non-functional-requirements)
+13. [Use Cases](#use-cases)
+
 ## **Objective:**
 Develop an application for task management that allows users to efficiently add, edit, and delete tasks.
+
+## **Requirements**
+This is a project built on `C#` Programming Language. `PostgreSQL` as the database. To add these pacakges you need a container image of postgreSQL or it be locally installed on your machine.
+
+It is used a `.env` file with environment varibales. Please rename the file [.env.example](.env.example) to `.env`.
+
+## **Packages To Install**
+  1. DotNet.Net - To Read Environment Variables From .Env File;
+  2. Npgsql - To Work With PostgreSQL;
+
+## Installing Packages:
+```bash
+dotnet add package dotenv.net
+```
+
+```bash
+dotnet add package Npgsql
+```
 
 ## **Key Features:**
 - **Add Task:**
