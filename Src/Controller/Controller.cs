@@ -1,6 +1,7 @@
 using System.Numerics;
 using IController;
 using ModelTask;
+using Priority;
 using Service;
 
 namespace Controller
@@ -24,9 +25,29 @@ namespace Controller
             this.servTasker.FinishTasker(id);
         }
 
-        public List<TaskModel> GetTasker()
+        public List<TaskModel> GetTaskersByTitle(string title)
         {
-            return this.servTasker.GetTasker();
+            return this.servTasker.GetTaskersByTitle(title);
+        }
+
+        public List<TaskModel> GetTaskersByPriority(EnumPriority priority)
+        {
+            return this.servTasker.GetTaskersByPriority(priority);
+        }
+
+        public List<TaskModel> GetTaskersByDateTimeStart(DateTime startAt)
+        {
+            return this.servTasker.GetTaskersByDateTimeStart(startAt);
+        }
+
+        public List<TaskModel> GetTaskersByDateTimeFinish(DateTime finishAt)
+        {
+            return this.servTasker.GetTaskersByDateTimeFinish(finishAt);
+        }
+
+        public List<TaskModel> GetTaskersByDateTimeStartAndFinish(DateTime startAt, DateTime finishAt)
+        {
+            return this.servTasker.GetTaskersByDateTimeStartAndFinish(startAt, finishAt);
         }
 
         public TaskModel UpdateTasker(TaskModel tasker, BigInteger id)

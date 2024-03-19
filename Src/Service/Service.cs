@@ -2,6 +2,7 @@ using System.Numerics;
 using IService;
 using ModelTask;
 using PersistenceTasker;
+using Priority;
 using PriorityEnumUtil;
 using UtilDateTime;
 using UtilString;
@@ -31,9 +32,29 @@ namespace Service
             throw new NotImplementedException();
         }
 
-        public List<TaskModel> GetTasker()
+        public List<TaskModel> GetTaskersByTitle(string title)
         {
-            throw new NotImplementedException();
+            return this.taskerPersistence.GetTaskersByTitle(title);
+        }
+
+        public List<TaskModel> GetTaskersByPriority(EnumPriority priority)
+        {
+            return this.taskerPersistence.GetTaskersByPriority(priority);
+        }
+
+        public List<TaskModel> GetTaskersByDateTimeStart(DateTime startAt)
+        {
+            return this.taskerPersistence.GetTaskersByDateTimeStart(startAt);
+        }
+
+        public List<TaskModel> GetTaskersByDateTimeFinish(DateTime finishAt)
+        {
+            return this.taskerPersistence.GetTaskersByDateTimeFinish(finishAt);
+        }
+
+        public List<TaskModel> GetTaskersByDateTimeStartAndFinish(DateTime startAt, DateTime finishAt)
+        {
+            return this.taskerPersistence.GetTaskersByDateTimeStartAndFinish(startAt, finishAt);
         }
 
         public TaskModel UpdateTasker(TaskModel tasker, BigInteger id)
