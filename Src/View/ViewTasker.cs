@@ -15,22 +15,29 @@ namespace ViewTasker
 
         private DateTime CreateDateTime()
         {
-            Console.Write("Year :> ");
-            int year = int.Parse(Console.ReadLine() ?? "1");
+            try
+            {
+                Console.Write("Year :> ");
+                int year = int.Parse(Console.ReadLine() ?? "1");
 
-            Console.Write("Month :> ");
-            int month = int.Parse(Console.ReadLine() ?? "1");
+                Console.Write("Month :> ");
+                int month = int.Parse(Console.ReadLine() ?? "1");
 
-            Console.Write("Day :> ");
-            int day = int.Parse(Console.ReadLine() ?? "1");
+                Console.Write("Day :> ");
+                int day = int.Parse(Console.ReadLine() ?? "1");
 
-            Console.Write("Hour :> ");
-            int hour = int.Parse(Console.ReadLine() ?? "0");
+                Console.Write("Hour :> ");
+                int hour = int.Parse(Console.ReadLine() ?? "0");
 
-            Console.Write("Minute :> ");
-            int minute = int.Parse(Console.ReadLine() ?? "0");
+                Console.Write("Minute :> ");
+                int minute = int.Parse(Console.ReadLine() ?? "0");
 
-            return new DateTime(year, month, day, hour, minute, 0);
+                return new DateTime(year, month, day, hour, minute, 0);
+            }
+            catch (Exception)
+            {}
+
+            return default(DateTime);
         }
 
         private void ListTaskersGotFromDB()
