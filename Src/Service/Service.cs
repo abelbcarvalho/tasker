@@ -66,7 +66,7 @@ namespace Service
 
         public TaskModel UpdateTasker(TaskModel tasker, BigInteger id)
         {
-            throw new NotImplementedException();
+            return this.taskerPersistence.UpdateTasker(tasker, id);
         }
     }
 }
