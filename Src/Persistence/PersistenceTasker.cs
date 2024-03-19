@@ -364,27 +364,29 @@ namespace PersistenceTasker
 
                 DatabaseConnectione.OpenConnection();
 
+                DateTime defaultDateTime = new(1,1,1,0,0,0);
+
                 model.Title = tasker.Title.Length > 0 ? tasker.Title : model.Title;
                 model.Description = tasker.Description.Length > 0 ? tasker.Description : model.Description;
                 model.Priority = tasker.Priority != EnumPriority.Unknown ? tasker.Priority : model.Priority;
                 model.Complete = tasker.Complete;
-                model.StartAt = tasker.StartAt != default(DateTime) ? tasker.StartAt : model.StartAt;
-                model.FinishAt = tasker.FinishAt != default(DateTime) ? tasker.FinishAt : model.FinishAt;
+                model.StartAt = tasker.StartAt != defaultDateTime ? tasker.StartAt : model.StartAt;
+                model.FinishAt = tasker.FinishAt != defaultDateTime ? tasker.FinishAt : model.FinishAt;
 
-                using var command = DatabaseConnectione.Command(
-                    "update Taskers set"+
-                    "title=@title, description=@description"+
-                    "priority=@priority, complete=@complete"+
-                    "startAt=@startAt, finishAt=@finishAt "+
-                    "where id=@id"
-                );
+                string sql = "update Taskers set " +
+                    "title=@title, description=@description, " +
+                    "priority=@priority, complete=@complete, " +
+                    "startAt=@startAt, finishAt=@finishAt " +
+                    "where id=@id";
 
-                command.Parameters.AddWithValue("@title", tasker.Title);
-                command.Parameters.AddWithValue("@description", tasker.Description);
-                command.Parameters.AddWithValue("@priority", PriorityUtil.EnumValueString(tasker.Priority));
-                command.Parameters.AddWithValue("@complete", tasker.Complete);
-                command.Parameters.AddWithValue("@startAt", tasker.StartAt);
-                command.Parameters.AddWithValue("@finishAt", tasker.FinishAt);
+                using var command = DatabaseConnectione.Command(sql);
+
+                command.Parameters.AddWithValue("@title", model.Title);
+                command.Parameters.AddWithValue("@description", model.Description);
+                command.Parameters.AddWithValue("@priority", PriorityUtil.EnumValueString(model.Priority));
+                command.Parameters.AddWithValue("@complete", model.Complete);
+                command.Parameters.AddWithValue("@startAt", model.StartAt);
+                command.Parameters.AddWithValue("@finishAt", model.FinishAt);
                 command.Parameters.AddWithValue("@id", id);
 
                 command.ExecuteNonQuery();
