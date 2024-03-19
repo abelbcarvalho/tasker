@@ -1,3 +1,4 @@
+using Controller;
 using ModelTask;
 using Priority;
 
@@ -7,6 +8,7 @@ namespace ViewTasker
     {
         private int alternative = default(int);
         private readonly TaskModel taskModel = new();
+        private readonly ControllerTasker controller = new();
 
         private DateTime CreateDateTime()
         {
@@ -145,6 +147,10 @@ namespace ViewTasker
 
             Console.WriteLine(":: Define The Finish At Time");
             this.taskModel.FinishAt = this.CreateDateTime();
+
+            controller.CreateTask(this.taskModel);
+
+            Console.WriteLine("Success to Create a New Task!");
         }
 
         protected void MenuText()
@@ -194,13 +200,13 @@ namespace ViewTasker
                         break;
                     case 0:
                         Console.WriteLine("Thank You For Use Tasker!");
-                        Console.ReadKey();
                         return;
                     default:
                         Console.WriteLine("Running Again! Press any key...");
-                        Console.ReadKey();
                         break;
                 }
+
+                Console.ReadKey();
             }
         }
 
